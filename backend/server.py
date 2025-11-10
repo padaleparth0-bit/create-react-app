@@ -274,8 +274,9 @@ async def delete_income(income_id: str, current_user: dict = Depends(get_current
 
 # Expense endpoints
 @api_router.post("/expenses", response_model=Expense)
-async def create_expense(input: ExpenseCreate):
+async def create_expense(input: ExpenseCreate, current_user: dict = Depends(get_current_user)):
     expense_dict = input.model_dump()
+    expense_dict['user_id'] = current_user['id']
     expense_obj = Expense(**expense_dict)
     doc = expense_obj.model_dump()
     doc['timestamp'] = doc['timestamp'].isoformat()
@@ -283,8 +284,8 @@ async def create_expense(input: ExpenseCreate):
     return expense_obj
 
 @api_router.get("/expenses", response_model=List[Expense])
-async def get_expenses(month: Optional[str] = None, year: Optional[int] = None):
-    query = {}
+async def get_expenses(month: Optional[str] = None, year: Optional[int] = None, current_user: dict = Depends(get_current_user)):
+    query = {"user_id": current_user['id']}
     if month:
         query['month'] = month
     if year:
@@ -296,8 +297,8 @@ async def get_expenses(month: Optional[str] = None, year: Optional[int] = None):
     return expenses_list
 
 @api_router.delete("/expenses/{expense_id}")
-async def delete_expense(expense_id: str):
-    result = await db.expenses.delete_one({"id": expense_id})
+async def delete_expense(expense_id: str, current_user: dict = Depends(get_current_user)):
+    result = await db.expenses.delete_one({"id": expense_id, "user_id": current_user['id']})
     if result.deleted_count == 0:
         raise HTTPException(status_code=404, detail="Expense not found")
     return {"message": "Expense deleted successfully"}
