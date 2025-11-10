@@ -454,6 +454,10 @@ function App() {
         </Select>
       </div>
 
+      <QuickActions onAction={handleQuickAction} />
+
+      <DailyInsights summary={summary} savings={savings} streak={streak} />
+
       <div className="summary-cards">
         <Card className="summary-card income-card">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
