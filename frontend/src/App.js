@@ -483,7 +483,8 @@ function App() {
                       <td>{item.due_date}</td>
                       <td>
                         <span
-                          className={`cursor-pointer ${item.status === 'paid' ? 'text-emerald-600 font-semibold' : 'text-amber-600 font-semibold'}`}
+                          className="cursor-pointer font-semibold"
+                          style={{color: item.status === 'paid' ? '#1a1a1a' : '#eab308'}}
                           onClick={() => toggleBillStatus(item)}
                           data-testid={`bill-status-${item.id}`}
                         >
