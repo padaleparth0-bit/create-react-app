@@ -189,7 +189,14 @@ function App() {
       }, { headers: { Authorization: `Bearer ${token}` } });
       setIncomeForm({ source: '', amount: '', date: '' });
       fetchAllData();
-      toast.success('💰 Income added successfully!');
+      const motivationalMessages = [
+        '💰 Great! Keep building that wealth!',
+        '🎉 Income added! You're on fire!',
+        '💵 Money coming in! Keep it up!',
+        '🚀 Another income stream tracked!',
+        '⭐ Awesome! Your finances are growing!'
+      ];
+      toast.success(motivationalMessages[Math.floor(Math.random() * motivationalMessages.length)]);
     } catch (error) {
       toast.error('Failed to add income');
     }
