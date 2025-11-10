@@ -984,6 +984,13 @@ function App() {
           onClose={() => setShowVoice(false)}
         />
       )}
+
+      {showSettings && (
+        <Settings 
+          token={token}
+          onClose={() => setShowSettings(false)}
+        />
+      )}
     </div>
   );
 }
