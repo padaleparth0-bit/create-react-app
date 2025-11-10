@@ -16,6 +16,7 @@ import { UserGuide } from "@/components/UserGuide";
 import { CameraCapture } from "@/components/CameraCapture";
 import { VoiceAssistant } from "@/components/VoiceAssistant";
 import { Settings } from "@/components/Settings";
+import { Onboarding } from "@/components/Onboarding";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
