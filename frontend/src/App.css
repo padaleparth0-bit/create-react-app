@@ -272,11 +272,12 @@ body::after {
 .data-table th {
   padding: 14px 16px;
   text-align: left;
-  font-weight: 600;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
   color: #475569;
-  font-size: 0.875rem;
+  font-size: 0.8125rem;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.1em;
   border-bottom: 2px solid #cbd5e1;
 }
 
