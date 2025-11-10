@@ -1018,6 +1018,113 @@ body::after {
   border-top: 1px solid #e5e7eb;
 }
 
+/* Enhanced Footer Styles */
+.footer {
+  text-align: center;
+  margin-top: 60px;
+  padding: 32px 24px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+}
+
+.footer-copyright {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.9375rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 500;
+  margin: 0;
+}
+
+.footer-creator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+}
+
+.creator-badge {
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+  color: white;
+  padding: 6px 16px;
+  border-radius: 50px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+}
+
+.creator-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.125rem;
+  color: white;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  letter-spacing: 0.02em;
+}
+
+.footer-tech {
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 400;
+  margin: 0;
+}
+
+/* Auth Footer Styles */
+.auth-footer {
+  margin-top: 24px;
+  text-align: center;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.auth-copyright {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0 0 8px 0;
+  font-weight: 500;
+}
+
+.auth-creator {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.9375rem;
+  color: rgba(255, 255, 255, 0.95);
+  margin: 0;
+}
+
+.auth-creator strong {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.0625rem;
+  color: white;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 768px) {
+  .footer-creator {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .creator-name {
+    font-size: 1rem;
+  }
+}
+
 /* Color-specific styles */
 .income-card .text-emerald-600,
 .income-card h4 {
