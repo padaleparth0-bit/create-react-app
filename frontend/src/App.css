@@ -257,6 +257,18 @@ body::after {
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
 }
 
+.section h2,
+.section [class*="CardTitle"] {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: 1.5rem;
+  letter-spacing: -0.01em;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
 .form-group {
   display: flex;
   gap: 12px;
