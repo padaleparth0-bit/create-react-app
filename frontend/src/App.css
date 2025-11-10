@@ -79,16 +79,15 @@ body::after {
   font-weight: 700;
   margin-bottom: 12px;
   letter-spacing: -0.02em;
-  background: linear-gradient(135deg, #8b5cf6 0%, #3b82f6 50%, #10b981 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #ffffff;
+  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .header p {
   font-size: 1.125rem;
-  color: #475569;
+  color: rgba(255, 255, 255, 0.95);
   font-weight: 500;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 .controls {
