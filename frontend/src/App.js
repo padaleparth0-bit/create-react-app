@@ -508,8 +508,17 @@ function App() {
         </Card>
       </div>
 
+      <Achievements 
+        summary={summary}
+        income={income}
+        expenses={expenses}
+        bills={bills}
+        savings={savings}
+        streak={streak}
+      />
+
       <div className="main-content">
-        <Card className="section">
+        <Card className="section" ref={incomeRef}>
           <CardHeader>
             <CardTitle data-testid="income-section-title">Income Tracker</CardTitle>
           </CardHeader>
