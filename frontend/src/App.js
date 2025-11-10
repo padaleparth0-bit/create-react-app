@@ -2,11 +2,12 @@ import { useState, useEffect } from "react";
 import "@/App.css";
 import axios from "axios";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
-import { Trash2, TrendingUp, TrendingDown, DollarSign, PiggyBank, Receipt } from "lucide-react";
+import { Trash2, TrendingUp, TrendingDown, DollarSign, PiggyBank, Receipt, LogOut, User } from "lucide-react";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
@@ -15,6 +16,14 @@ const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 
 const CATEGORIES = ['Food', 'Transport', 'Entertainment', 'Shopping', 'Healthcare', 'Education', 'Utilities', 'Other'];
 
 function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [showLogin, setShowLogin] = useState(true);
+  const [user, setUser] = useState(null);
+  const [token, setToken] = useState(localStorage.getItem('token'));
+
+  const [loginForm, setLoginForm] = useState({ email: '', password: '' });
+  const [signupForm, setSignupForm] = useState({ username: '', email: '', password: '' });
+
   const [selectedMonth, setSelectedMonth] = useState(MONTHS[new Date().getMonth()]);
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
   
@@ -30,25 +39,88 @@ function App() {
     balance: 0
   });
 
-  // Form states
   const [incomeForm, setIncomeForm] = useState({ source: '', amount: '', date: '' });
   const [expenseForm, setExpenseForm] = useState({ category: '', amount: '', description: '', date: '' });
   const [billForm, setBillForm] = useState({ name: '', amount: '', due_date: '', status: 'pending' });
   const [savingForm, setSavingForm] = useState({ goal: '', target_amount: '', current_amount: '' });
 
   useEffect(() => {
-    fetchAllData();
-  }, [selectedMonth, selectedYear]);
+    if (token) {
+      checkAuth();
+    }
+  }, []);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      fetchAllData();
+    }
+  }, [isAuthenticated, selectedMonth, selectedYear]);
+
+  const checkAuth = async () => {
+    try {
+      const response = await axios.get(`${API}/auth/me`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      setUser(response.data);
+      setIsAuthenticated(true);
+    } catch (error) {
+      localStorage.removeItem('token');
+      setToken(null);
+      setIsAuthenticated(false);
+    }
+  };
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(`${API}/auth/login`, loginForm);
+      const { access_token, user } = response.data;
+      localStorage.setItem('token', access_token);
+      setToken(access_token);
+      setUser(user);
+      setIsAuthenticated(true);
+      toast.success(`Welcome back, ${user.username}! 🎉`);
+    } catch (error) {
+      toast.error(error.response?.data?.detail || 'Login failed');
+    }
+  };
+
+  const handleSignup = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(`${API}/auth/register`, signupForm);
+      const { access_token, user } = response.data;
+      localStorage.setItem('token', access_token);
+      setToken(access_token);
+      setUser(user);
+      setIsAuthenticated(true);
+      toast.success(`Account created! Welcome, ${user.username}! 🎊`);
+    } catch (error) {
+      toast.error(error.response?.data?.detail || 'Signup failed');
+    }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    setToken(null);
+    setIsAuthenticated(false);
+    setUser(null);
+    toast.success('Logged out successfully');
+  };
 
   const fetchAllData = async () => {
     try {
+      const headers = { Authorization: `Bearer ${token}` };
+      const params = { month: selectedMonth, year: selectedYear };
+      
       const [incomeRes, expensesRes, billsRes, savingsRes, summaryRes] = await Promise.all([
-        axios.get(`${API}/income`, { params: { month: selectedMonth, year: selectedYear } }),
-        axios.get(`${API}/expenses`, { params: { month: selectedMonth, year: selectedYear } }),
-        axios.get(`${API}/bills`, { params: { month: selectedMonth, year: selectedYear } }),
-        axios.get(`${API}/savings`, { params: { month: selectedMonth, year: selectedYear } }),
-        axios.get(`${API}/summary`, { params: { month: selectedMonth, year: selectedYear } })
+        axios.get(`${API}/income`, { headers, params }),
+        axios.get(`${API}/expenses`, { headers, params }),
+        axios.get(`${API}/bills`, { headers, params }),
+        axios.get(`${API}/savings`, { headers, params }),
+        axios.get(`${API}/summary`, { headers, params })
       ]);
+      
       setIncome(incomeRes.data);
       setExpenses(expensesRes.data);
       setBills(billsRes.data);
@@ -56,7 +128,9 @@ function App() {
       setSummary(summaryRes.data);
     } catch (error) {
       console.error('Error fetching data:', error);
-      toast.error('Failed to fetch data');
+      if (error.response?.status === 401) {
+        handleLogout();
+      }
     }
   };
 
@@ -71,12 +145,11 @@ function App() {
         amount: parseFloat(incomeForm.amount),
         month: selectedMonth,
         year: selectedYear
-      });
+      }, { headers: { Authorization: `Bearer ${token}` } });
       setIncomeForm({ source: '', amount: '', date: '' });
       fetchAllData();
-      toast.success('Income added successfully');
+      toast.success('💰 Income added successfully!');
     } catch (error) {
-      console.error('Error adding income:', error);
       toast.error('Failed to add income');
     }
   };
@@ -92,12 +165,11 @@ function App() {
         amount: parseFloat(expenseForm.amount),
         month: selectedMonth,
         year: selectedYear
-      });
+      }, { headers: { Authorization: `Bearer ${token}` } });
       setExpenseForm({ category: '', amount: '', description: '', date: '' });
       fetchAllData();
-      toast.success('Expense added successfully');
+      toast.success('📝 Expense added successfully!');
     } catch (error) {
-      console.error('Error adding expense:', error);
       toast.error('Failed to add expense');
     }
   };
@@ -113,12 +185,11 @@ function App() {
         amount: parseFloat(billForm.amount),
         month: selectedMonth,
         year: selectedYear
-      });
+      }, { headers: { Authorization: `Bearer ${token}` } });
       setBillForm({ name: '', amount: '', due_date: '', status: 'pending' });
       fetchAllData();
-      toast.success('Bill added successfully');
+      toast.success('🧾 Bill added successfully!');
     } catch (error) {
-      console.error('Error adding bill:', error);
       toast.error('Failed to add bill');
     }
   };
@@ -135,19 +206,18 @@ function App() {
         current_amount: parseFloat(savingForm.current_amount),
         month: selectedMonth,
         year: selectedYear
-      });
+      }, { headers: { Authorization: `Bearer ${token}` } });
       setSavingForm({ goal: '', target_amount: '', current_amount: '' });
       fetchAllData();
-      toast.success('Saving goal added successfully');
+      toast.success('🎯 Saving goal added successfully!');
     } catch (error) {
-      console.error('Error adding saving:', error);
       toast.error('Failed to add saving goal');
     }
   };
 
   const deleteIncome = async (id) => {
     try {
-      await axios.delete(`${API}/income/${id}`);
+      await axios.delete(`${API}/income/${id}`, { headers: { Authorization: `Bearer ${token}` } });
       fetchAllData();
       toast.success('Income deleted');
     } catch (error) {
@@ -157,7 +227,7 @@ function App() {
 
   const deleteExpense = async (id) => {
     try {
-      await axios.delete(`${API}/expenses/${id}`);
+      await axios.delete(`${API}/expenses/${id}`, { headers: { Authorization: `Bearer ${token}` } });
       fetchAllData();
       toast.success('Expense deleted');
     } catch (error) {
@@ -167,7 +237,7 @@ function App() {
 
   const deleteBill = async (id) => {
     try {
-      await axios.delete(`${API}/bills/${id}`);
+      await axios.delete(`${API}/bills/${id}`, { headers: { Authorization: `Bearer ${token}` } });
       fetchAllData();
       toast.success('Bill deleted');
     } catch (error) {
@@ -177,7 +247,7 @@ function App() {
 
   const deleteSaving = async (id) => {
     try {
-      await axios.delete(`${API}/savings/${id}`);
+      await axios.delete(`${API}/savings/${id}`, { headers: { Authorization: `Bearer ${token}` } });
       fetchAllData();
       toast.success('Saving goal deleted');
     } catch (error) {
@@ -188,7 +258,7 @@ function App() {
   const toggleBillStatus = async (bill) => {
     try {
       const newStatus = bill.status === 'paid' ? 'pending' : 'paid';
-      await axios.patch(`${API}/bills/${bill.id}/status?status=${newStatus}`);
+      await axios.patch(`${API}/bills/${bill.id}/status?status=${newStatus}`, {}, { headers: { Authorization: `Bearer ${token}` } });
       fetchAllData();
       toast.success(`Bill marked as ${newStatus}`);
     } catch (error) {
@@ -196,11 +266,127 @@ function App() {
     }
   };
 
+  if (!isAuthenticated) {
+    return (
+      <div className="auth-container">
+        <div className="auth-backdrop"></div>
+        <div className="auth-card-wrapper">
+          <Card className="auth-card">
+            <CardHeader className="text-center">
+              <div className="auth-logo" data-testid="auth-logo">💰</div>
+              <CardTitle className="auth-title" data-testid="auth-title">Personal Finance Manager</CardTitle>
+              <CardDescription data-testid="auth-description">
+                {showLogin ? 'Welcome back! Sign in to continue' : 'Create your account to get started'}
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              {showLogin ? (
+                <form onSubmit={handleLogin} className="auth-form">
+                  <div className="form-field">
+                    <Label htmlFor="login-email">Email</Label>
+                    <Input
+                      id="login-email"
+                      type="email"
+                      placeholder="your@email.com"
+                      value={loginForm.email}
+                      onChange={(e) => setLoginForm({ ...loginForm, email: e.target.value })}
+                      required
+                      data-testid="login-email-input"
+                    />
+                  </div>
+                  <div className="form-field">
+                    <Label htmlFor="login-password">Password</Label>
+                    <Input
+                      id="login-password"
+                      type="password"
+                      placeholder="••••••••"
+                      value={loginForm.password}
+                      onChange={(e) => setLoginForm({ ...loginForm, password: e.target.value })}
+                      required
+                      data-testid="login-password-input"
+                    />
+                  </div>
+                  <Button type="submit" className="auth-button" data-testid="login-submit-btn">
+                    Sign In
+                  </Button>
+                  <p className="auth-switch">
+                    Don't have an account?{' '}
+                    <span onClick={() => setShowLogin(false)} data-testid="switch-to-signup">Sign Up</span>
+                  </p>
+                </form>
+              ) : (
+                <form onSubmit={handleSignup} className="auth-form">
+                  <div className="form-field">
+                    <Label htmlFor="signup-username">Username</Label>
+                    <Input
+                      id="signup-username"
+                      type="text"
+                      placeholder="johndoe"
+                      value={signupForm.username}
+                      onChange={(e) => setSignupForm({ ...signupForm, username: e.target.value })}
+                      required
+                      data-testid="signup-username-input"
+                    />
+                  </div>
+                  <div className="form-field">
+                    <Label htmlFor="signup-email">Email</Label>
+                    <Input
+                      id="signup-email"
+                      type="email"
+                      placeholder="your@email.com"
+                      value={signupForm.email}
+                      onChange={(e) => setSignupForm({ ...signupForm, email: e.target.value })}
+                      required
+                      data-testid="signup-email-input"
+                    />
+                  </div>
+                  <div className="form-field">
+                    <Label htmlFor="signup-password">Password</Label>
+                    <Input
+                      id="signup-password"
+                      type="password"
+                      placeholder="••••••••"
+                      value={signupForm.password}
+                      onChange={(e) => setSignupForm({ ...signupForm, password: e.target.value })}
+                      required
+                      data-testid="signup-password-input"
+                    />
+                  </div>
+                  <Button type="submit" className="auth-button" data-testid="signup-submit-btn">
+                    Create Account
+                  </Button>
+                  <p className="auth-switch">
+                    Already have an account?{' '}
+                    <span onClick={() => setShowLogin(true)} data-testid="switch-to-login">Sign In</span>
+                  </p>
+                </form>
+              )}
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="app-container">
       <div className="header">
-        <h1 data-testid="app-title">Personal Finance Manager</h1>
-        <p data-testid="app-subtitle">Track your income, expenses, bills and savings all in one place</p>
+        <div className="header-content">
+          <div>
+            <h1 data-testid="app-title">Personal Finance Manager</h1>
+            <p data-testid="app-subtitle">Track your income, expenses, bills and savings all in one place</p>
+          </div>
+          <div className="user-section">
+            <div className="user-info" data-testid="user-info">
+              <User className="h-5 w-5" />
+              <span>{user?.username}</span>
+            </div>
+            <Button variant="outline" size="sm" onClick={handleLogout} className="logout-btn" data-testid="logout-btn">
+              <LogOut className="h-4 w-4 mr-2" />
+              Logout
+            </Button>
+          </div>
+        </div>
       </div>
 
       <div className="controls">
@@ -243,10 +429,10 @@ function App() {
         <Card className="summary-card expense-card">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Total Expenses</CardTitle>
-            <TrendingDown className="h-4 w-4" style={{color: '#dc2626'}} />
+            <TrendingDown className="h-4 w-4" style={{color: '#ef4444'}} />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold" style={{color: '#dc2626'}} data-testid="total-expenses">
+            <div className="text-2xl font-bold" style={{color: '#ef4444'}} data-testid="total-expenses">
               ${summary.total_expenses.toFixed(2)}
             </div>
           </CardContent>
@@ -255,10 +441,10 @@ function App() {
         <Card className="summary-card bills-card">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Paid Bills</CardTitle>
-            <Receipt className="h-4 w-4" style={{color: '#1a1a1a'}} />
+            <Receipt className="h-4 w-4" style={{color: '#3b82f6'}} />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold" style={{color: '#1a1a1a'}} data-testid="total-bills">
+            <div className="text-2xl font-bold" style={{color: '#3b82f6'}} data-testid="total-bills">
               ${summary.total_bills.toFixed(2)}
             </div>
           </CardContent>
@@ -267,10 +453,10 @@ function App() {
         <Card className="summary-card balance-card">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Savings Goals</CardTitle>
-            <PiggyBank className="h-4 w-4" style={{color: '#eab308'}} />
+            <PiggyBank className="h-4 w-4" style={{color: '#f59e0b'}} />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold" style={{color: '#eab308'}} data-testid="balance">
+            <div className="text-2xl font-bold" style={{color: '#f59e0b'}} data-testid="balance">
               ${summary.total_savings.toFixed(2)}
             </div>
           </CardContent>
@@ -278,7 +464,6 @@ function App() {
       </div>
 
       <div className="main-content">
-        {/* Income Section */}
         <Card className="section">
           <CardHeader>
             <CardTitle data-testid="income-section-title">Income Tracker</CardTitle>
@@ -333,7 +518,7 @@ function App() {
                           onClick={() => deleteIncome(item.id)}
                           data-testid={`delete-income-${item.id}`}
                         >
-                          <Trash2 className="h-4 w-4" style={{color: '#dc2626'}} />
+                          <Trash2 className="h-4 w-4" style={{color: '#ef4444'}} />
                         </Button>
                       </td>
                     </tr>
@@ -344,7 +529,6 @@ function App() {
           </CardContent>
         </Card>
 
-        {/* Expenses Section */}
         <Card className="section">
           <CardHeader>
             <CardTitle data-testid="expenses-section-title">Expense Tracker</CardTitle>
@@ -411,7 +595,7 @@ function App() {
                           onClick={() => deleteExpense(item.id)}
                           data-testid={`delete-expense-${item.id}`}
                         >
-                          <Trash2 className="h-4 w-4" style={{color: '#dc2626'}} />
+                          <Trash2 className="h-4 w-4" style={{color: '#ef4444'}} />
                         </Button>
                       </td>
                     </tr>
@@ -422,7 +606,6 @@ function App() {
           </CardContent>
         </Card>
 
-        {/* Bills Section */}
         <Card className="section">
           <CardHeader>
             <CardTitle data-testid="bills-section-title">Bill Manager</CardTitle>
@@ -484,7 +667,7 @@ function App() {
                       <td>
                         <span
                           className="cursor-pointer font-semibold"
-                          style={{color: item.status === 'paid' ? '#1a1a1a' : '#eab308'}}
+                          style={{color: item.status === 'paid' ? '#3b82f6' : '#f59e0b'}}
                           onClick={() => toggleBillStatus(item)}
                           data-testid={`bill-status-${item.id}`}
                         >
@@ -498,7 +681,7 @@ function App() {
                           onClick={() => deleteBill(item.id)}
                           data-testid={`delete-bill-${item.id}`}
                         >
-                          <Trash2 className="h-4 w-4" style={{color: '#dc2626'}} />
+                          <Trash2 className="h-4 w-4" style={{color: '#ef4444'}} />
                         </Button>
                       </td>
                     </tr>
@@ -509,7 +692,6 @@ function App() {
           </CardContent>
         </Card>
 
-        {/* Savings Section */}
         <Card className="section">
           <CardHeader>
             <CardTitle data-testid="savings-section-title">Savings Goals</CardTitle>
@@ -562,7 +744,7 @@ function App() {
                         <td>${item.target_amount.toFixed(2)}</td>
                         <td>${item.current_amount.toFixed(2)}</td>
                         <td>
-                          <span className="font-semibold" style={{color: progress >= 100 ? '#eab308' : '#eab308'}} data-testid={`saving-progress-${item.id}`}>
+                          <span className="font-semibold" style={{color: progress >= 100 ? '#10b981' : '#f59e0b'}} data-testid={`saving-progress-${item.id}`}>
                             {progress.toFixed(0)}%
                           </span>
                         </td>
@@ -573,7 +755,7 @@ function App() {
                             onClick={() => deleteSaving(item.id)}
                             data-testid={`delete-saving-${item.id}`}
                           >
-                            <Trash2 className="h-4 w-4" style={{color: '#dc2626'}} />
+                            <Trash2 className="h-4 w-4" style={{color: '#ef4444'}} />
                           </Button>
                         </td>
                       </tr>
