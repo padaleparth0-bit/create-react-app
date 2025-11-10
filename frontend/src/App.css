@@ -74,20 +74,46 @@ body::after {
 }
 
 .header h1 {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 3.5rem;
-  font-weight: 700;
-  margin-bottom: 12px;
-  letter-spacing: -0.02em;
+  font-family: 'Playfair Display', serif;
+  font-size: 4rem;
+  font-weight: 900;
+  margin-bottom: 16px;
+  letter-spacing: -0.03em;
   color: #ffffff;
-  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  text-shadow: 0 6px 20px rgba(0, 0, 0, 0.3), 0 2px 4px rgba(0, 0, 0, 0.2);
+  animation: fadeInDown 1s ease-out;
 }
 
 .header p {
-  font-size: 1.125rem;
+  font-family: 'Raleway', sans-serif;
+  font-size: 1.25rem;
   color: rgba(255, 255, 255, 0.95);
-  font-weight: 500;
+  font-weight: 400;
+  letter-spacing: 0.05em;
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  animation: fadeInUp 1s ease-out;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .controls {
