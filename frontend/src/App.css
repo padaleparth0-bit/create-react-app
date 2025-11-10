@@ -286,6 +286,8 @@ body::after {
   border-bottom: 1px solid #f0f0f0;
   color: #546e7a;
   font-size: 0.9375rem;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
 }
 
 .data-table tbody tr {
