@@ -57,6 +57,7 @@ function App() {
   const [showCamera, setShowCamera] = useState(false);
   const [showVoice, setShowVoice] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
+  const [showOnboarding, setShowOnboarding] = useState(false);
 
   // Refs for scrolling
   const incomeRef = useRef(null);
