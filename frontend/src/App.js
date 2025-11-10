@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import "@/App.css";
 import axios from "axios";
 import { Button } from "@/components/ui/button";
@@ -8,6 +8,9 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
 import { Trash2, TrendingUp, TrendingDown, DollarSign, PiggyBank, Receipt, LogOut, User } from "lucide-react";
+import { DailyInsights } from "@/components/DailyInsights";
+import { Achievements } from "@/components/Achievements";
+import { QuickActions } from "@/components/QuickActions";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
