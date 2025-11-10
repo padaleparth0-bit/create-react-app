@@ -151,7 +151,33 @@ function App() {
       } else {
         setStreak(1);
         localStorage.setItem('streak', '1');
-      }\n    }\n  };\n\n  const updateDailyLogin = () => {\n    const today = new Date().toDateString();\n    localStorage.setItem('lastLogin', today);\n  };\n\n  const handleQuickAction = (actionId) => {\n    switch(actionId) {\n      case 'add-income':\n        incomeRef.current?.scrollIntoView({ behavior: 'smooth' });\n        break;\n      case 'add-expense':\n        expenseRef.current?.scrollIntoView({ behavior: 'smooth' });\n        break;\n      case 'pay-bill':\n        billRef.current?.scrollIntoView({ behavior: 'smooth' });\n        break;\n      case 'set-goal':\n        savingRef.current?.scrollIntoView({ behavior: 'smooth' });\n        break;\n      default:\n        break;\n    }\n  };
+      }
+    }
+  };
+
+  const updateDailyLogin = () => {
+    const today = new Date().toDateString();
+    localStorage.setItem('lastLogin', today);
+  };
+
+  const handleQuickAction = (actionId) => {
+    switch(actionId) {
+      case 'add-income':
+        incomeRef.current?.scrollIntoView({ behavior: 'smooth' });
+        break;
+      case 'add-expense':
+        expenseRef.current?.scrollIntoView({ behavior: 'smooth' });
+        break;
+      case 'pay-bill':
+        billRef.current?.scrollIntoView({ behavior: 'smooth' });
+        break;
+      case 'set-goal':
+        savingRef.current?.scrollIntoView({ behavior: 'smooth' });
+        break;
+      default:
+        break;
+    }
+  };
 
   const fetchAllData = async () => {
     try {
