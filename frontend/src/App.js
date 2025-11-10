@@ -216,7 +216,14 @@ function App() {
       }, { headers: { Authorization: `Bearer ${token}` } });
       setExpenseForm({ category: '', amount: '', description: '', date: '' });
       fetchAllData();
-      toast.success('📝 Expense added successfully!');
+      const trackingMessages = [
+        '📝 Tracked! Awareness is the first step!',
+        '👍 Good job tracking your spending!',
+        '💪 You're managing your money like a pro!',
+        '📊 Expense logged! Stay in control!',
+        '✅ Tracked! Knowledge is power!'
+      ];
+      toast.success(trackingMessages[Math.floor(Math.random() * trackingMessages.length)]);
     } catch (error) {
       toast.error('Failed to add expense');
     }
