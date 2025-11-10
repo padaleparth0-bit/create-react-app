@@ -295,11 +295,11 @@ function App() {
       setSavingForm({ goal: '', target_amount: '', current_amount: '' });
       fetchAllData();
       const goalMessages = [
-        '🎯 Goal set! Dream big, save bigger!',
-        '🌟 Awesome goal! You got this!',
-        '💎 Great goal! Your future self will thank you!',
-        '🏆 Goal created! Success is within reach!',
-        '🚀 Amazing! Let's crush this goal together!'
+        'Goal set! Dream big, save bigger!',
+        'Awesome goal! You got this!',
+        'Great goal! Your future self will thank you!',
+        'Goal created! Success is within reach!',
+        'Amazing! Lets crush this goal together!'
       ];
       toast.success(goalMessages[Math.floor(Math.random() * goalMessages.length)]);
     } catch (error) {
