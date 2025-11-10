@@ -583,7 +583,7 @@ function App() {
           </CardContent>
         </Card>
 
-        <Card className="section">
+        <Card className="section" ref={expenseRef}>
           <CardHeader>
             <CardTitle data-testid="expenses-section-title">Expense Tracker</CardTitle>
           </CardHeader>
