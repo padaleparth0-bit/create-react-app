@@ -85,6 +85,7 @@ class IncomeCreate(BaseModel):
 class Expense(BaseModel):
     model_config = ConfigDict(extra="ignore")
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    user_id: str
     category: str
     amount: float
     description: str
