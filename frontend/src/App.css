@@ -20,8 +20,11 @@ body {
 
 .header {
   text-align: center;
-  color: #333;
+  color: #1e293b;
   margin-bottom: 40px;
+  padding: 20px;
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%);
+  border-radius: 20px;
 }
 
 .header h1 {
@@ -30,12 +33,16 @@ body {
   font-weight: 700;
   margin-bottom: 12px;
   letter-spacing: -0.02em;
+  background: linear-gradient(135deg, #8b5cf6 0%, #3b82f6 50%, #10b981 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .header p {
   font-size: 1.125rem;
-  color: #666;
-  font-weight: 400;
+  color: #475569;
+  font-weight: 500;
 }
 
 .controls {
