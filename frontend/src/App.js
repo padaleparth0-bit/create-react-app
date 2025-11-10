@@ -998,6 +998,12 @@ function App() {
           onClose={() => setShowSettings(false)}
         />
       )}
+
+      {showOnboarding && (
+        <Onboarding 
+          onComplete={() => setShowOnboarding(false)}
+        />
+      )}
     </div>
   );
 }
