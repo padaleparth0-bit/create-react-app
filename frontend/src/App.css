@@ -8,7 +8,7 @@
 
 body {
   font-family: 'Inter', sans-serif;
-  background: linear-gradient(135deg, #e0f2f1 0%, #b2dfdb 50%, #80cbc4 100%);
+  background: white;
   min-height: 100vh;
 }
 
@@ -20,7 +20,7 @@ body {
 
 .header {
   text-align: center;
-  color: #004d40;
+  color: #333;
   margin-bottom: 40px;
 }
 
@@ -34,7 +34,7 @@ body {
 
 .header p {
   font-size: 1.125rem;
-  color: #00695c;
+  color: #666;
   font-weight: 400;
 }
 
