@@ -52,6 +52,8 @@ function App() {
   const [savingForm, setSavingForm] = useState({ goal: '', target_amount: '', current_amount: '' });
   const [streak, setStreak] = useState(0);
   const [showAchievements, setShowAchievements] = useState(false);
+  const [showCamera, setShowCamera] = useState(false);
+  const [showVoice, setShowVoice] = useState(false);
 
   // Refs for scrolling
   const incomeRef = useRef(null);
