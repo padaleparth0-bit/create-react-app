@@ -247,11 +247,11 @@ function App() {
       setExpenseForm({ category: '', amount: '', description: '', date: '' });
       fetchAllData();
       const trackingMessages = [
-        '📝 Tracked! Awareness is the first step!',
-        '👍 Good job tracking your spending!',
-        '💪 You're managing your money like a pro!',
-        '📊 Expense logged! Stay in control!',
-        '✅ Tracked! Knowledge is power!'
+        'Tracked! Awareness is the first step!',
+        'Good job tracking your spending!',
+        'You are managing your money like a pro!',
+        'Expense logged! Stay in control!',
+        'Tracked! Knowledge is power!'
       ];
       toast.success(trackingMessages[Math.floor(Math.random() * trackingMessages.length)]);
     } catch (error) {
