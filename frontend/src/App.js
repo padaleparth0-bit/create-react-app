@@ -562,7 +562,7 @@ function App() {
                         <td>${item.target_amount.toFixed(2)}</td>
                         <td>${item.current_amount.toFixed(2)}</td>
                         <td>
-                          <span className={progress >= 100 ? 'text-emerald-600 font-semibold' : 'text-blue-600'} data-testid={`saving-progress-${item.id}`}>
+                          <span className="font-semibold" style={{color: progress >= 100 ? '#eab308' : '#eab308'}} data-testid={`saving-progress-${item.id}`}>
                             {progress.toFixed(0)}%
                           </span>
                         </td>
