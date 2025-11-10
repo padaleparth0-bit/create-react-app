@@ -126,6 +126,29 @@ function App() {
     toast.success('Logged out successfully');
   };
 
+  const calculateStreak = () => {
+    const lastLogin = localStorage.getItem('lastLogin');
+    const today = new Date().toDateString();
+    
+    if (!lastLogin) {
+      setStreak(1);
+    } else {
+      const lastDate = new Date(lastLogin);
+      const currentDate = new Date();
+      const diffTime = Math.abs(currentDate - lastDate);
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      
+      if (diffDays === 1) {
+        const currentStreak = parseInt(localStorage.getItem('streak') || '0') + 1;
+        setStreak(currentStreak);
+        localStorage.setItem('streak', currentStreak.toString());
+      } else if (diffDays === 0) {
+        setStreak(parseInt(localStorage.getItem('streak') || '1'));
+      } else {
+        setStreak(1);
+        localStorage.setItem('streak', '1');
+      }\n    }\n  };\n\n  const updateDailyLogin = () => {\n    const today = new Date().toDateString();\n    localStorage.setItem('lastLogin', today);\n  };\n\n  const handleQuickAction = (actionId) => {\n    switch(actionId) {\n      case 'add-income':\n        incomeRef.current?.scrollIntoView({ behavior: 'smooth' });\n        break;\n      case 'add-expense':\n        expenseRef.current?.scrollIntoView({ behavior: 'smooth' });\n        break;\n      case 'pay-bill':\n        billRef.current?.scrollIntoView({ behavior: 'smooth' });\n        break;\n      case 'set-goal':\n        savingRef.current?.scrollIntoView({ behavior: 'smooth' });\n        break;\n      default:\n        break;\n    }\n  };
+
   const fetchAllData = async () => {
     try {
       const headers = { Authorization: `Bearer ${token}` };
