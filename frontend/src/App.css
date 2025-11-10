@@ -91,7 +91,7 @@ body {
 }
 
 .btn-add {
-  background: linear-gradient(135deg, #00897b 0%, #00695c 100%);
+  background: #4a90e2;
   color: white;
   font-weight: 600;
   border-radius: 8px;
@@ -100,7 +100,7 @@ body {
 }
 
 .btn-add:hover {
-  opacity: 0.9;
+  opacity: 0.85;
   transform: scale(1.02);
 }
 
