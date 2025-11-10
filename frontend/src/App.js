@@ -498,7 +498,7 @@ function App() {
                           onClick={() => deleteBill(item.id)}
                           data-testid={`delete-bill-${item.id}`}
                         >
-                          <Trash2 className="h-4 w-4 text-rose-600" />
+                          <Trash2 className="h-4 w-4" style={{color: '#dc2626'}} />
                         </Button>
                       </td>
                     </tr>
