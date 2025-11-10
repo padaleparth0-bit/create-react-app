@@ -125,6 +125,7 @@ class BillCreate(BaseModel):
 class Saving(BaseModel):
     model_config = ConfigDict(extra="ignore")
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    user_id: str
     goal: str
     target_amount: float
     current_amount: float
