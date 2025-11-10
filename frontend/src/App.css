@@ -1125,6 +1125,272 @@ body::after {
   }
 }
 
+/* Camera & Voice Utility Buttons */
+.utility-btn {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.utility-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+.camera-btn:hover {
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+}
+
+.voice-btn:hover {
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+}
+
+/* Camera Overlay */
+.camera-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+}
+
+.camera-card {
+  width: 90%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.camera-container {
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.camera-placeholder {
+  text-align: center;
+  padding: 40px;
+}
+
+.video-container {
+  width: 100%;
+  position: relative;
+}
+
+.camera-video {
+  width: 100%;
+  border-radius: 12px;
+  background: #000;
+}
+
+.camera-controls,
+.preview-controls {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+  justify-content: center;
+}
+
+.preview-container {
+  width: 100%;
+  text-align: center;
+}
+
+.captured-image {
+  width: 100%;
+  border-radius: 12px;
+  margin-bottom: 16px;
+}
+
+.camera-tips {
+  margin-top: 24px;
+  padding: 16px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  font-size: 0.875rem;
+}
+
+.camera-tips h4 {
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.camera-tips ul {
+  margin: 0;
+  padding-left: 20px;
+  color: #666;
+}
+
+.camera-tips li {
+  margin-bottom: 4px;
+}
+
+/* Voice Overlay */
+.voice-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+}
+
+.voice-card {
+  width: 90%;
+  max-width: 500px;
+}
+
+.voice-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.voice-visualizer {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f5f5f5;
+  border: 4px solid #e5e7eb;
+  transition: all 0.3s ease;
+}
+
+.voice-visualizer.listening {
+  background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+  border-color: #ef4444;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.voice-visualizer.speaking {
+  background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+  border-color: #3b82f6;
+  animation: pulse 1s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 15px rgba(239, 68, 68, 0);
+  }
+}
+
+.pulse-animation {
+  animation: bounce 0.8s ease-in-out infinite;
+}
+
+.voice-status {
+  text-align: center;
+}
+
+.status-text {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 1.125rem;
+  margin: 0;
+}
+
+.status-text.listening {
+  color: #ef4444;
+}
+
+.status-text.speaking {
+  color: #3b82f6;
+}
+
+.status-text.idle {
+  color: #9ca3af;
+}
+
+.transcript-box {
+  width: 100%;
+  padding: 16px;
+  background: #f0f9ff;
+  border-radius: 8px;
+  border-left: 4px solid #3b82f6;
+  font-family: 'Poppins', sans-serif;
+}
+
+.voice-controls {
+  display: flex;
+  gap: 12px;
+}
+
+.voice-btn {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  font-size: 1rem;
+  padding: 12px 32px;
+}
+
+.voice-examples {
+  width: 100%;
+  padding: 16px;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.voice-examples h4 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 0.875rem;
+  margin-bottom: 12px;
+  color: #333;
+}
+
+.voice-examples ul {
+  margin: 0;
+  padding-left: 20px;
+  color: #666;
+  font-size: 0.875rem;
+}
+
+.voice-examples li {
+  margin-bottom: 6px;
+}
+
+.voice-tips {
+  width: 100%;
+  padding: 12px;
+  background: #fef3c7;
+  border-radius: 8px;
+  font-size: 0.8125rem;
+}
+
+.voice-tips p {
+  margin: 4px 0;
+  color: #78350f;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 /* Color-specific styles */
 .income-card .text-emerald-600,
 .income-card h4 {
