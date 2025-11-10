@@ -231,10 +231,10 @@ function App() {
         <Card className="summary-card income-card">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Total Income</CardTitle>
-            <TrendingUp className="h-4 w-4 text-emerald-600" />
+            <TrendingUp className="h-4 w-4" style={{color: '#2563eb'}} />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-emerald-600" data-testid="total-income">
+            <div className="text-2xl font-bold" style={{color: '#2563eb'}} data-testid="total-income">
               ${summary.total_income.toFixed(2)}
             </div>
           </CardContent>
@@ -243,10 +243,10 @@ function App() {
         <Card className="summary-card expense-card">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Total Expenses</CardTitle>
-            <TrendingDown className="h-4 w-4 text-rose-600" />
+            <TrendingDown className="h-4 w-4" style={{color: '#dc2626'}} />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-rose-600" data-testid="total-expenses">
+            <div className="text-2xl font-bold" style={{color: '#dc2626'}} data-testid="total-expenses">
               ${summary.total_expenses.toFixed(2)}
             </div>
           </CardContent>
@@ -255,10 +255,10 @@ function App() {
         <Card className="summary-card bills-card">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Paid Bills</CardTitle>
-            <Receipt className="h-4 w-4 text-amber-600" />
+            <Receipt className="h-4 w-4" style={{color: '#1a1a1a'}} />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-amber-600" data-testid="total-bills">
+            <div className="text-2xl font-bold" style={{color: '#1a1a1a'}} data-testid="total-bills">
               ${summary.total_bills.toFixed(2)}
             </div>
           </CardContent>
@@ -266,12 +266,12 @@ function App() {
 
         <Card className="summary-card balance-card">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Balance</CardTitle>
-            <DollarSign className="h-4 w-4 text-blue-600" />
+            <CardTitle className="text-sm font-medium">Savings Goals</CardTitle>
+            <PiggyBank className="h-4 w-4" style={{color: '#eab308'}} />
           </CardHeader>
           <CardContent>
-            <div className={`text-2xl font-bold ${summary.balance >= 0 ? 'text-blue-600' : 'text-rose-600'}`} data-testid="balance">
-              ${summary.balance.toFixed(2)}
+            <div className="text-2xl font-bold" style={{color: '#eab308'}} data-testid="balance">
+              ${summary.total_savings.toFixed(2)}
             </div>
           </CardContent>
         </Card>
