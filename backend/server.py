@@ -346,8 +346,9 @@ async def delete_bill(bill_id: str, current_user: dict = Depends(get_current_use
 
 # Savings endpoints
 @api_router.post("/savings", response_model=Saving)
-async def create_saving(input: SavingCreate):
+async def create_saving(input: SavingCreate, current_user: dict = Depends(get_current_user)):
     saving_dict = input.model_dump()
+    saving_dict['user_id'] = current_user['id']
     saving_obj = Saving(**saving_dict)
     doc = saving_obj.model_dump()
     doc['timestamp'] = doc['timestamp'].isoformat()
@@ -355,8 +356,8 @@ async def create_saving(input: SavingCreate):
     return saving_obj
 
 @api_router.get("/savings", response_model=List[Saving])
-async def get_savings(month: Optional[str] = None, year: Optional[int] = None):
-    query = {}
+async def get_savings(month: Optional[str] = None, year: Optional[int] = None, current_user: dict = Depends(get_current_user)):
+    query = {"user_id": current_user['id']}
     if month:
         query['month'] = month
     if year:
@@ -368,9 +369,9 @@ async def get_savings(month: Optional[str] = None, year: Optional[int] = None):
     return savings_list
 
 @api_router.patch("/savings/{saving_id}")
-async def update_saving(saving_id: str, current_amount: float):
+async def update_saving(saving_id: str, current_amount: float, current_user: dict = Depends(get_current_user)):
     result = await db.savings.update_one(
-        {"id": saving_id},
+        {"id": saving_id, "user_id": current_user['id']},
         {"$set": {"current_amount": current_amount}}
     )
     if result.modified_count == 0:
@@ -378,16 +379,16 @@ async def update_saving(saving_id: str, current_amount: float):
     return {"message": "Saving updated successfully"}
 
 @api_router.delete("/savings/{saving_id}")
-async def delete_saving(saving_id: str):
-    result = await db.savings.delete_one({"id": saving_id})
+async def delete_saving(saving_id: str, current_user: dict = Depends(get_current_user)):
+    result = await db.savings.delete_one({"id": saving_id, "user_id": current_user['id']})
     if result.deleted_count == 0:
         raise HTTPException(status_code=404, detail="Saving not found")
     return {"message": "Saving deleted successfully"}
 
 # Summary endpoint
 @api_router.get("/summary", response_model=SummaryResponse)
-async def get_summary(month: Optional[str] = None, year: Optional[int] = None):
-    query = {}
+async def get_summary(month: Optional[str] = None, year: Optional[int] = None, current_user: dict = Depends(get_current_user)):
+    query = {"user_id": current_user['id']}
     if month:
         query['month'] = month
     if year:
