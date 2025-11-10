@@ -271,11 +271,11 @@ body::after {
 
 .footer {
   text-align: center;
-  color: #666;
+  color: rgba(255, 255, 255, 0.9);
   margin-top: 60px;
   padding: 24px;
-  opacity: 0.8;
   font-size: 0.9375rem;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 /* Color-specific styles */
