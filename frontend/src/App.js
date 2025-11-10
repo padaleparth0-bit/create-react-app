@@ -524,7 +524,27 @@ function App() {
           </div>
           <div className="user-section">
             <UserGuide />
-            <Button \n              variant="outline" \n              size="sm" \n              onClick={() => setShowCamera(true)} \n              className="utility-btn camera-btn"\n              data-testid="camera-btn"\n            >\n              <Camera className="h-4 w-4 mr-2" />\n              Scan Bill\n            </Button>\n            <Button \n              variant="outline" \n              size="sm" \n              onClick={() => setShowVoice(true)} \n              className="utility-btn voice-btn"\n              data-testid="voice-btn"\n            >\n              <Mic className="h-4 w-4 mr-2" />\n              Voice\n            </Button>\n            <div className="user-info" data-testid="user-info">
+            <Button 
+              variant="outline" 
+              size="sm" 
+              onClick={() => setShowCamera(true)} 
+              className="utility-btn camera-btn"
+              data-testid="camera-btn"
+            >
+              <Camera className="h-4 w-4 mr-2" />
+              Scan Bill
+            </Button>
+            <Button 
+              variant="outline" 
+              size="sm" 
+              onClick={() => setShowVoice(true)} 
+              className="utility-btn voice-btn"
+              data-testid="voice-btn"
+            >
+              <Mic className="h-4 w-4 mr-2" />
+              Voice
+            </Button>
+            <div className="user-info" data-testid="user-info">
               <User className="h-5 w-5" />
               <span>{user?.username}</span>
             </div>
