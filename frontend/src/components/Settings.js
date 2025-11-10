@@ -113,7 +113,7 @@ export const Settings = ({ onClose, token }) => {
           </div>
         </CardHeader>
         <CardContent>
-          <Tabs defaultValue=\"general\" className=\"w-full\">
+          <Tabs defaultValue=\"general\" className='w-full'>
             <TabsList className=\"grid w-full grid-cols-4\">
               <TabsTrigger value=\"general\">
                 <SettingsIcon className=\"h-4 w-4 mr-2\" />
@@ -134,8 +134,8 @@ export const Settings = ({ onClose, token }) => {
             </TabsList>
 
             {/* General Tab */}
-            <TabsContent value=\"general\" className=\"space-y-4\">
-              <div className=\"setting-group\">
+            <TabsContent value=\"general\" className='space-y-4'>
+              <div className='setting-group'>
                 <Label htmlFor=\"theme\">Theme</Label>
                 <Select value={settings.theme} onValueChange={(val) => setSettings({...settings, theme: val})}>
                   <SelectTrigger id=\"theme\">
@@ -149,7 +149,7 @@ export const Settings = ({ onClose, token }) => {
                 </Select>
               </div>
 
-              <div className=\"setting-group\">
+              <div className='setting-group'>
                 <Label htmlFor=\"language\">Language</Label>
                 <Select value={settings.language} onValueChange={(val) => setSettings({...settings, language: val})}>
                   <SelectTrigger id=\"language\">
@@ -164,7 +164,7 @@ export const Settings = ({ onClose, token }) => {
                 </Select>
               </div>
 
-              <div className=\"setting-group\">
+              <div className='setting-group'>
                 <Label htmlFor=\"currency\">Currency</Label>
                 <Select value={settings.currency} onValueChange={(val) => setSettings({...settings, currency: val})}>
                   <SelectTrigger id=\"currency\">
@@ -178,15 +178,15 @@ export const Settings = ({ onClose, token }) => {
                 </Select>
               </div>
 
-              <Button onClick={saveGeneralSettings} className=\"w-full\" data-testid=\"save-general-btn\">
+              <Button onClick={saveGeneralSettings} className='w-full' data-testid=\"save-general-btn\">
                 <Check className=\"h-4 w-4 mr-2\" />
                 Save General Settings
               </Button>
             </TabsContent>
 
             {/* Notifications Tab */}
-            <TabsContent value=\"notifications\" className=\"space-y-4\">
-              <div className=\"notification-option\">
+            <TabsContent value=\"notifications\" className='space-y-4'>
+              <div className='notification-option'>
                 <div className=\"flex items-center justify-between\">
                   <div>
                     <Label className=\"font-semibold\">Push Notifications</Label>
@@ -199,7 +199,7 @@ export const Settings = ({ onClose, token }) => {
                 </div>
               </div>
 
-              <div className=\"notification-option\">
+              <div className='notification-option'>
                 <div className=\"flex items-center justify-between\">
                   <div>
                     <Label className=\"font-semibold\">Email Notifications</Label>
@@ -212,7 +212,7 @@ export const Settings = ({ onClose, token }) => {
                 </div>
               </div>
 
-              <div className=\"notification-option\">
+              <div className='notification-option'>
                 <div className=\"flex items-center justify-between\">
                   <div>
                     <Label className=\"font-semibold\">Daily Summary</Label>
@@ -225,7 +225,7 @@ export const Settings = ({ onClose, token }) => {
                 </div>
               </div>
 
-              <div className=\"notification-option\">
+              <div className='notification-option'>
                 <div className=\"flex items-center justify-between\">
                   <div>
                     <Label className=\"font-semibold\">Weekly Report</Label>
@@ -238,7 +238,7 @@ export const Settings = ({ onClose, token }) => {
                 </div>
               </div>
 
-              <div className=\"notification-option\">
+              <div className='notification-option'>
                 <div className=\"flex items-center justify-between\">
                   <div>
                     <Label className=\"font-semibold\">Budget Alerts</Label>
@@ -251,7 +251,7 @@ export const Settings = ({ onClose, token }) => {
                 </div>
               </div>
 
-              <div className=\"notification-option\">
+              <div className='notification-option'>
                 <div className=\"flex items-center justify-between\">
                   <div>
                     <Label className=\"font-semibold\">Fraud Alerts</Label>
@@ -264,7 +264,7 @@ export const Settings = ({ onClose, token }) => {
                 </div>
               </div>
 
-              <div className=\"setting-group\">
+              <div className='setting-group'>
                 <Label htmlFor=\"notification-time\">Notification Time</Label>
                 <Input
                   id=\"notification-time\"
@@ -274,21 +274,21 @@ export const Settings = ({ onClose, token }) => {
                 />
               </div>
 
-              <Button onClick={saveNotifications} className=\"w-full\" data-testid=\"save-notifications-btn\">
+              <Button onClick={saveNotifications} className='w-full' data-testid=\"save-notifications-btn\">
                 <Check className=\"h-4 w-4 mr-2\" />
                 Save Notifications
               </Button>
             </TabsContent>
 
             {/* Photos Tab */}
-            <TabsContent value=\"photos\" className=\"space-y-4\">
-              <div className=\"photo-upload-section\">
+            <TabsContent value=\"photos\" className='space-y-4'>
+              <div className='photo-upload-section'>
                 <Label className=\"font-semibold mb-2\">Profile Photo</Label>
-                <div className=\"profile-photo-preview\">
+                <div className='profile-photo-preview'>
                   {profilePhoto ? (
-                    <img src={profilePhoto} alt=\"Profile\" className=\"preview-image\" />
+                    <img src={profilePhoto} alt=\"Profile\" className='preview-image' />
                   ) : (
-                    <div className=\"no-photo\">
+                    <div className='no-photo'>
                       <Camera className=\"h-12 w-12 text-gray-400\" />
                       <p className=\"text-gray-600 mt-2\">No photo yet</p>
                     </div>
@@ -304,7 +304,7 @@ export const Settings = ({ onClose, token }) => {
                 <p className=\"text-sm text-gray-500 mt-2\">Max size: 5MB (JPEG, PNG, GIF)</p>
               </div>
 
-              <div className=\"info-box\">
+              <div className='info-box'>
                 <h4 className=\"font-semibold mb-2\">Receipt Photos</h4>
                 <p className=\"text-sm text-gray-600\">
                   Upload receipt images for expense tracking & verification. 
@@ -312,15 +312,15 @@ export const Settings = ({ onClose, token }) => {
                 </p>
               </div>
 
-              <Button onClick={savePhotoSettings} className=\"w-full\" data-testid=\"save-photo-btn\">
+              <Button onClick={savePhotoSettings} className='w-full' data-testid=\"save-photo-btn\">
                 <Check className=\"h-4 w-4 mr-2\" />
                 Upload Photo
               </Button>
             </TabsContent>
 
             {/* Security Tab */}
-            <TabsContent value=\"security\" className=\"space-y-4\">
-              <div className=\"notification-option\">
+            <TabsContent value=\"security\" className='space-y-4'>
+              <div className='notification-option'>
                 <div className=\"flex items-center justify-between\">
                   <div>
                     <Label className=\"font-semibold\">Two-Factor Authentication</Label>
@@ -333,7 +333,7 @@ export const Settings = ({ onClose, token }) => {
                 </div>
               </div>
 
-              <div className=\"notification-option\">
+              <div className='notification-option'>
                 <div className=\"flex items-center justify-between\">
                   <div>
                     <Label className=\"font-semibold\">App Lock (PIN)</Label>
@@ -347,7 +347,7 @@ export const Settings = ({ onClose, token }) => {
               </div>
 
               {security.app_lock_enabled && (
-                <div className=\"setting-group\">
+                <div className='setting-group'>
                   <Label htmlFor=\"pin\">4-Digit PIN</Label>
                   <Input
                     id=\"pin\"
@@ -360,7 +360,7 @@ export const Settings = ({ onClose, token }) => {
                 </div>
               )}
 
-              <div className=\"notification-option\">
+              <div className='notification-option'>
                 <div className=\"flex items-center justify-between\">
                   <div>
                     <Label className=\"font-semibold\">Biometric Lock</Label>
@@ -373,7 +373,7 @@ export const Settings = ({ onClose, token }) => {
                 </div>
               </div>
 
-              <div className=\"notification-option\">
+              <div className='notification-option'>
                 <div className=\"flex items-center justify-between\">
                   <div>
                     <Label className=\"font-semibold\">Share Anonymous Data</Label>
@@ -386,7 +386,7 @@ export const Settings = ({ onClose, token }) => {
                 </div>
               </div>
 
-              <Button onClick={saveSecuritySettings} className=\"w-full\" data-testid=\"save-security-btn\">
+              <Button onClick={saveSecuritySettings} className='w-full' data-testid=\"save-security-btn\">
                 <Check className=\"h-4 w-4 mr-2\" />
                 Save Security Settings
               </Button>
