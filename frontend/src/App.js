@@ -46,12 +46,27 @@ function App() {
   const [expenseForm, setExpenseForm] = useState({ category: '', amount: '', description: '', date: '' });
   const [billForm, setBillForm] = useState({ name: '', amount: '', due_date: '', status: 'pending' });
   const [savingForm, setSavingForm] = useState({ goal: '', target_amount: '', current_amount: '' });
+  const [streak, setStreak] = useState(0);
+  const [showAchievements, setShowAchievements] = useState(false);
+
+  // Refs for scrolling
+  const incomeRef = useRef(null);
+  const expenseRef = useRef(null);
+  const billRef = useRef(null);
+  const savingRef = useRef(null);
 
   useEffect(() => {
     if (token) {
       checkAuth();
+      calculateStreak();
     }
   }, []);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      updateDailyLogin();
+    }
+  }, [isAuthenticated]);
 
   useEffect(() => {
     if (isAuthenticated) {
