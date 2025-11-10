@@ -97,7 +97,11 @@ function App() {
       setToken(access_token);
       setUser(user);
       setIsAuthenticated(true);
-      toast.success(`Welcome back, ${user.username}! 🎉`);
+      const hour = new Date().getHours();
+      let greeting = '🌙 Good evening';
+      if (hour < 12) greeting = '🌅 Good morning';
+      else if (hour < 18) greeting = '☀️ Good afternoon';
+      toast.success(`${greeting}, ${user.username}! Ready to manage your finances? 💰`);
     } catch (error) {
       toast.error(error.response?.data?.detail || 'Login failed');
     }
