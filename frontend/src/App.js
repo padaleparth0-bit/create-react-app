@@ -55,6 +55,7 @@ function App() {
   const [showAchievements, setShowAchievements] = useState(false);
   const [showCamera, setShowCamera] = useState(false);
   const [showVoice, setShowVoice] = useState(false);
+  const [showSettings, setShowSettings] = useState(false);
 
   // Refs for scrolling
   const incomeRef = useRef(null);
