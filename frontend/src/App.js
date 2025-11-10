@@ -525,6 +525,16 @@ function App() {
             <p data-testid="app-subtitle">Track your income, expenses, bills and savings all in one place</p>
           </div>
           <div className="user-section">
+            <Button 
+              variant="outline" 
+              size="sm" 
+              onClick={() => setShowSettings(true)} 
+              className="utility-btn settings-btn"
+              data-testid="settings-btn"
+            >
+              <SettingsIcon className="h-4 w-4 mr-2" />
+              Settings
+            </Button>
             <UserGuide />
             <Button 
               variant="outline" 
