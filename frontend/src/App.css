@@ -280,6 +280,25 @@ body::after {
 .form-group select {
   flex: 1;
   min-width: 180px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  font-size: 0.9375rem;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: #8b5cf6;
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+  transform: translateY(-2px);
+}
+
+.form-group input::placeholder {
+  font-family: 'Raleway', sans-serif;
+  font-weight: 400;
+  color: #94a3b8;
+  letter-spacing: 0.02em;
 }
 
 .btn-add {
