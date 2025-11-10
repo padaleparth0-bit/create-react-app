@@ -63,13 +63,50 @@ body {
 .summary-card {
   background: white;
   border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0, 77, 64, 0.08);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 2px solid transparent;
 }
 
 .summary-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(0, 77, 64, 0.12);
+  transform: translateY(-8px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+}
+
+.income-card {
+  background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+  border-color: #10b981;
+}
+
+.income-card:hover {
+  box-shadow: 0 12px 32px rgba(16, 185, 129, 0.3);
+}
+
+.expense-card {
+  background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+  border-color: #ef4444;
+}
+
+.expense-card:hover {
+  box-shadow: 0 12px 32px rgba(239, 68, 68, 0.3);
+}
+
+.bills-card {
+  background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+  border-color: #3b82f6;
+}
+
+.bills-card:hover {
+  box-shadow: 0 12px 32px rgba(59, 130, 246, 0.3);
+}
+
+.balance-card {
+  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+  border-color: #f59e0b;
+}
+
+.balance-card:hover {
+  box-shadow: 0 12px 32px rgba(245, 158, 11, 0.3);
 }
 
 .main-content {
