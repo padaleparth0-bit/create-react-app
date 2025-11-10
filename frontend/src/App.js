@@ -220,11 +220,11 @@ function App() {
       setIncomeForm({ source: '', amount: '', date: '' });
       fetchAllData();
       const motivationalMessages = [
-        '💰 Great! Keep building that wealth!',
-        '🎉 Income added! You're on fire!',
-        '💵 Money coming in! Keep it up!',
-        '🚀 Another income stream tracked!',
-        '⭐ Awesome! Your finances are growing!'
+        'Great! Keep building that wealth!',
+        'Income added! You are on fire!',
+        'Money coming in! Keep it up!',
+        'Another income stream tracked!',
+        'Awesome! Your finances are growing!'
       ];
       toast.success(motivationalMessages[Math.floor(Math.random() * motivationalMessages.length)]);
     } catch (error) {
