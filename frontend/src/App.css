@@ -383,7 +383,10 @@ body::after {
   color: rgba(255, 255, 255, 0.9);
   margin-top: 60px;
   padding: 24px;
+  font-family: 'Raleway', sans-serif;
   font-size: 0.9375rem;
+  font-weight: 400;
+  letter-spacing: 0.05em;
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
