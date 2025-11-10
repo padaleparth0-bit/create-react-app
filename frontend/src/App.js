@@ -459,6 +459,12 @@ function App() {
               )}
             </CardContent>
           </Card>
+          <div className="auth-footer">
+            <p className="auth-copyright">© 2025 Personal Finance Manager</p>
+            <p className="auth-creator">
+              Created by <strong>Prathamesh Ravindra Padale</strong>
+            </p>
+          </div>
         </div>
       </div>
     );
