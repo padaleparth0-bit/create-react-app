@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
-import { Trash2, TrendingUp, TrendingDown, DollarSign, PiggyBank, Receipt, LogOut, User } from "lucide-react";
+import { Trash2, TrendingUp, TrendingDown, DollarSign, PiggyBank, Receipt, LogOut, User, Camera, Mic } from "lucide-react";
 import { DailyInsights } from "@/components/DailyInsights";
 import { Achievements } from "@/components/Achievements";
 import { QuickActions } from "@/components/QuickActions";
