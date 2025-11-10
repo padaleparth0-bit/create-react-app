@@ -367,8 +367,7 @@ function App() {
         <div className="auth-card-wrapper">
           <Card className="auth-card">
             <CardHeader className="text-center">
-              <div className="auth-logo" data-testid="auth-logo">💰</div>
-              <CardTitle className="auth-title" data-testid="auth-title">Personal Finance Manager</CardTitle>
+              <div className="flex justify-center mb-4" data-testid="auth-logo">\n                <Logo size=\"large\" />\n              </div>\n              <CardTitle className="auth-title" data-testid="auth-title">Personal Finance Manager</CardTitle>
               <CardDescription data-testid="auth-description">
                 {showLogin ? 'Welcome back! Sign in to continue' : 'Create your account to get started'}
               </CardDescription>
