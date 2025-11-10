@@ -746,7 +746,7 @@ function App() {
           </CardContent>
         </Card>
 
-        <Card className="section">
+        <Card className="section" ref={savingRef}>
           <CardHeader>
             <CardTitle data-testid="savings-section-title">Savings Goals</CardTitle>
           </CardHeader>
