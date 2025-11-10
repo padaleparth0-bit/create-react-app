@@ -938,6 +938,20 @@ function App() {
           <p className="footer-tech">Built with React & FastAPI</p>
         </div>
       </div>
+
+      {showCamera && (
+        <CameraCapture 
+          onCapture={handleCameraCapture}
+          onClose={() => setShowCamera(false)}
+        />
+      )}
+
+      {showVoice && (
+        <VoiceAssistant 
+          onCommand={handleVoiceCommand}
+          onClose={() => setShowVoice(false)}
+        />
+      )}
     </div>
   );
 }
