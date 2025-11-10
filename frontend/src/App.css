@@ -143,11 +143,35 @@ body {
 
 .footer {
   text-align: center;
-  color: #00695c;
+  color: #666;
   margin-top: 60px;
   padding: 24px;
   opacity: 0.8;
   font-size: 0.9375rem;
+}
+
+/* Color-specific styles */
+.income-card .text-emerald-600,
+.income-card h4 {
+  color: #2563eb !important;
+}
+
+.expense-card .text-rose-600,
+.expense-card h4 {
+  color: #dc2626 !important;
+}
+
+.bills-card .text-amber-600,
+.bills-card h4 {
+  color: #1a1a1a !important;
+}
+
+.balance-card .text-blue-600 {
+  color: #2563eb !important;
+}
+
+.savings-goal-card {
+  color: #eab308 !important;
 }
 
 .overflow-x-auto {
