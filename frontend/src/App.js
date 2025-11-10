@@ -13,6 +13,8 @@ import { Achievements } from "@/components/Achievements";
 import { QuickActions } from "@/components/QuickActions";
 import { Logo } from "@/components/Logo";
 import { UserGuide } from "@/components/UserGuide";
+import { CameraCapture } from "@/components/CameraCapture";
+import { VoiceAssistant } from "@/components/VoiceAssistant";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
