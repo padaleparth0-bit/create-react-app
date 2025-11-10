@@ -99,8 +99,8 @@ export const Settings = ({ onClose, token }) => {
   };
 
   return (
-    <div className=\"settings-overlay\">
-      <Card className=\"settings-card\">
+    <div className="settings-overlay">
+      <Card className="settings-card">
         <CardHeader>
           <div className=\"flex items-center justify-between\">
             <div className=\"flex items-center gap-2\">
