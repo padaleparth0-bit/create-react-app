@@ -231,10 +231,10 @@ function App() {
         <Card className="summary-card income-card">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Total Income</CardTitle>
-            <TrendingUp className="h-4 w-4" style={{color: '#2563eb'}} />
+            <TrendingUp className="h-4 w-4" style={{color: '#10b981'}} />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold" style={{color: '#2563eb'}} data-testid="total-income">
+            <div className="text-2xl font-bold" style={{color: '#10b981'}} data-testid="total-income">
               ${summary.total_income.toFixed(2)}
             </div>
           </CardContent>
