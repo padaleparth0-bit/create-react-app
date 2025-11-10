@@ -147,6 +147,100 @@ class SummaryResponse(BaseModel):
     total_savings: float
     balance: float
 
+# Auth helper functions
+def hash_password(password: str) -> str:
+    return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
+
+def verify_password(plain_password: str, hashed_password: str) -> bool:
+    return bcrypt.checkpw(plain_password.encode('utf-8'), hashed_password.encode('utf-8'))
+
+def create_access_token(data: dict) -> str:
+    to_encode = data.copy()
+    expire = datetime.now(timezone.utc) + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+    to_encode.update({"exp": expire})
+    return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+
+async def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(security)) -> dict:
+    try:
+        token = credentials.credentials
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        user_id: str = payload.get("sub")
+        if user_id is None:
+            raise HTTPException(status_code=401, detail="Invalid authentication credentials")
+        
+        user = await db.users.find_one({"id": user_id}, {"_id": 0})
+        if user is None:
+            raise HTTPException(status_code=401, detail="User not found")
+        return user
+    except jwt.ExpiredSignatureError:
+        raise HTTPException(status_code=401, detail="Token has expired")
+    except jwt.JWTError:
+        raise HTTPException(status_code=401, detail="Could not validate credentials")
+
+# Auth endpoints
+@api_router.post("/auth/register", response_model=TokenResponse)
+async def register(user_data: UserCreate):
+    # Check if user exists
+    existing_user = await db.users.find_one({"$or": [{"email": user_data.email}, {"username": user_data.username}]})
+    if existing_user:
+        raise HTTPException(status_code=400, detail="User already exists")
+    
+    # Create user
+    hashed_password = hash_password(user_data.password)
+    user_obj = User(
+        username=user_data.username,
+        email=user_data.email,
+        password=hashed_password
+    )
+    
+    doc = user_obj.model_dump()
+    doc['created_at'] = doc['created_at'].isoformat()
+    await db.users.insert_one(doc)
+    
+    # Create token
+    access_token = create_access_token(data={"sub": user_obj.id})
+    
+    user_response = UserResponse(
+        id=user_obj.id,
+        username=user_obj.username,
+        email=user_obj.email,
+        created_at=user_obj.created_at
+    )
+    
+    return TokenResponse(access_token=access_token, token_type="bearer", user=user_response)
+
+@api_router.post("/auth/login", response_model=TokenResponse)
+async def login(credentials: UserLogin):
+    user = await db.users.find_one({"email": credentials.email}, {"_id": 0})
+    if not user or not verify_password(credentials.password, user['password']):
+        raise HTTPException(status_code=401, detail="Invalid email or password")
+    
+    access_token = create_access_token(data={"sub": user['id']})
+    
+    if isinstance(user['created_at'], str):
+        user['created_at'] = datetime.fromisoformat(user['created_at'])
+    
+    user_response = UserResponse(
+        id=user['id'],
+        username=user['username'],
+        email=user['email'],
+        created_at=user['created_at']
+    )
+    
+    return TokenResponse(access_token=access_token, token_type="bearer", user=user_response)
+
+@api_router.get("/auth/me", response_model=UserResponse)
+async def get_me(current_user: dict = Depends(get_current_user)):
+    if isinstance(current_user['created_at'], str):
+        current_user['created_at'] = datetime.fromisoformat(current_user['created_at'])
+    
+    return UserResponse(
+        id=current_user['id'],
+        username=current_user['username'],
+        email=current_user['email'],
+        created_at=current_user['created_at']
+    )
+
 # Income endpoints
 @api_router.post("/income", response_model=Income)
 async def create_income(input: IncomeCreate):
