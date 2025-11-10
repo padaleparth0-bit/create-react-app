@@ -245,17 +245,38 @@ body::after {
 .btn-add {
   background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);
   color: white;
-  font-weight: 600;
-  border-radius: 8px;
-  padding: 10px 24px;
-  transition: opacity 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 0.875rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border-radius: 12px;
+  padding: 12px 28px;
+  transition: all 0.3s ease;
   box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-add::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.5s ease;
+}
+
+.btn-add:hover::before {
+  left: 100%;
 }
 
 .btn-add:hover {
-  opacity: 0.9;
-  transform: scale(1.05);
-  box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4);
+  opacity: 0.95;
+  transform: scale(1.05) translateY(-2px);
+  box-shadow: 0 8px 24px rgba(139, 92, 246, 0.5);
 }
 
 .data-table {
