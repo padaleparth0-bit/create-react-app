@@ -153,17 +153,19 @@ body {
 }
 
 .btn-add {
-  background: #4a90e2;
+  background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);
   color: white;
   font-weight: 600;
   border-radius: 8px;
   padding: 10px 24px;
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  transition: opacity 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
 }
 
 .btn-add:hover {
-  opacity: 0.85;
-  transform: scale(1.02);
+  opacity: 0.9;
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4);
 }
 
 .data-table {
