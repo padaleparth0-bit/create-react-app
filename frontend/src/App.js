@@ -660,7 +660,7 @@ function App() {
           </CardContent>
         </Card>
 
-        <Card className="section">
+        <Card className="section" ref={billRef}>
           <CardHeader>
             <CardTitle data-testid="bills-section-title">Bill Manager</CardTitle>
           </CardHeader>
