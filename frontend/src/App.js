@@ -185,6 +185,46 @@ function App() {
     }
   };
 
+  const handleCameraCapture = (data) => {
+    // Auto-fill bill form with scanned data
+    setBillForm({
+      name: data.billName || '',
+      amount: data.amount || '',
+      due_date: data.date || '',
+      status: 'pending'
+    });
+    billRef.current?.scrollIntoView({ behavior: 'smooth' });
+    toast.success('Bill data filled! Review and save.');
+  };
+
+  const handleVoiceCommand = async (data) => {
+    if (data.type === 'income') {
+      setIncomeForm({
+        source: data.description,
+        amount: data.amount,
+        date: data.date
+      });
+      incomeRef.current?.scrollIntoView({ behavior: 'smooth' });
+    } else if (data.type === 'bill') {
+      setBillForm({
+        name: data.description,
+        amount: data.amount,
+        due_date: data.date,
+        status: 'pending'
+      });
+      billRef.current?.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      setExpenseForm({
+        category: data.category,
+        amount: data.amount,
+        description: data.description,
+        date: data.date
+      });
+      expenseRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }
+    toast.success('Voice data filled! Review and save.');
+  };
+
   const fetchAllData = async () => {
     try {
       const headers = { Authorization: `Bearer ${token}` };
