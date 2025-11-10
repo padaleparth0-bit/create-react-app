@@ -305,8 +305,9 @@ async def delete_expense(expense_id: str, current_user: dict = Depends(get_curre
 
 # Bill endpoints
 @api_router.post("/bills", response_model=Bill)
-async def create_bill(input: BillCreate):
+async def create_bill(input: BillCreate, current_user: dict = Depends(get_current_user)):
     bill_dict = input.model_dump()
+    bill_dict['user_id'] = current_user['id']
     bill_obj = Bill(**bill_dict)
     doc = bill_obj.model_dump()
     doc['timestamp'] = doc['timestamp'].isoformat()
@@ -314,8 +315,8 @@ async def create_bill(input: BillCreate):
     return bill_obj
 
 @api_router.get("/bills", response_model=List[Bill])
-async def get_bills(month: Optional[str] = None, year: Optional[int] = None):
-    query = {}
+async def get_bills(month: Optional[str] = None, year: Optional[int] = None, current_user: dict = Depends(get_current_user)):
+    query = {"user_id": current_user['id']}
     if month:
         query['month'] = month
     if year:
@@ -327,9 +328,9 @@ async def get_bills(month: Optional[str] = None, year: Optional[int] = None):
     return bills_list
 
 @api_router.patch("/bills/{bill_id}/status")
-async def update_bill_status(bill_id: str, status: str):
+async def update_bill_status(bill_id: str, status: str, current_user: dict = Depends(get_current_user)):
     result = await db.bills.update_one(
-        {"id": bill_id},
+        {"id": bill_id, "user_id": current_user['id']},
         {"$set": {"status": status}}
     )
     if result.modified_count == 0:
@@ -337,8 +338,8 @@ async def update_bill_status(bill_id: str, status: str):
     return {"message": "Bill status updated successfully"}
 
 @api_router.delete("/bills/{bill_id}")
-async def delete_bill(bill_id: str):
-    result = await db.bills.delete_one({"id": bill_id})
+async def delete_bill(bill_id: str, current_user: dict = Depends(get_current_user)):
+    result = await db.bills.delete_one({"id": bill_id, "user_id": current_user['id']})
     if result.deleted_count == 0:
         raise HTTPException(status_code=404, detail="Bill not found")
     return {"message": "Bill deleted successfully"}
