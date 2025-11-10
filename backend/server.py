@@ -243,8 +243,9 @@ async def get_me(current_user: dict = Depends(get_current_user)):
 
 # Income endpoints
 @api_router.post("/income", response_model=Income)
-async def create_income(input: IncomeCreate):
+async def create_income(input: IncomeCreate, current_user: dict = Depends(get_current_user)):
     income_dict = input.model_dump()
+    income_dict['user_id'] = current_user['id']
     income_obj = Income(**income_dict)
     doc = income_obj.model_dump()
     doc['timestamp'] = doc['timestamp'].isoformat()
@@ -252,8 +253,8 @@ async def create_income(input: IncomeCreate):
     return income_obj
 
 @api_router.get("/income", response_model=List[Income])
-async def get_income(month: Optional[str] = None, year: Optional[int] = None):
-    query = {}
+async def get_income(month: Optional[str] = None, year: Optional[int] = None, current_user: dict = Depends(get_current_user)):
+    query = {"user_id": current_user['id']}
     if month:
         query['month'] = month
     if year:
@@ -265,8 +266,8 @@ async def get_income(month: Optional[str] = None, year: Optional[int] = None):
     return income_list
 
 @api_router.delete("/income/{income_id}")
-async def delete_income(income_id: str):
-    result = await db.income.delete_one({"id": income_id})
+async def delete_income(income_id: str, current_user: dict = Depends(get_current_user)):
+    result = await db.income.delete_one({"id": income_id, "user_id": current_user['id']})
     if result.deleted_count == 0:
         raise HTTPException(status_code=404, detail="Income not found")
     return {"message": "Income deleted successfully"}
