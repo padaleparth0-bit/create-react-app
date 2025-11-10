@@ -879,7 +879,14 @@ function App() {
       </div>
 
       <div className="footer">
-        <p>© 2025 Personal Finance Manager | Built with React & FastAPI</p>
+        <div className="footer-content">
+          <p className="footer-copyright">© 2025 Personal Finance Manager | All Rights Reserved</p>
+          <p className="footer-creator">
+            <span className="creator-badge">Made with ❤️ by</span>
+            <strong className="creator-name">Prathamesh Ravindra Padale</strong>
+          </p>
+          <p className="footer-tech">Built with React & FastAPI</p>
+        </div>
       </div>
     </div>
   );
