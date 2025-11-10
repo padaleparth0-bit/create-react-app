@@ -75,6 +75,11 @@ function App() {
   useEffect(() => {
     if (isAuthenticated) {
       updateDailyLogin();
+      // Check if onboarding is needed
+      const onboardingCompleted = localStorage.getItem('onboarding_completed');
+      if (!onboardingCompleted) {
+        setShowOnboarding(true);
+      }
     }
   }, [isAuthenticated]);
 
