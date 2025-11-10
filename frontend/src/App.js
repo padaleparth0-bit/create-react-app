@@ -470,6 +470,7 @@ function App() {
             <p data-testid="app-subtitle">Track your income, expenses, bills and savings all in one place</p>
           </div>
           <div className="user-section">
+            <UserGuide />
             <div className="user-info" data-testid="user-info">
               <User className="h-5 w-5" />
               <span>{user?.username}</span>
